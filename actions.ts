@@ -10,7 +10,6 @@ import { redirect } from "next/navigation"
 
 export const checkRateLimit = async () => {
   const ip = getIp()
-  console.log("ip", ip)
   if (!ip) {
     return {
       success: false,
@@ -19,8 +18,7 @@ export const checkRateLimit = async () => {
   }
 
   const currentExecution = Number(await client.GET(ip)) || 0
-  console.log("currentExecution", currentExecution)
-  if (currentExecution > 5) {
+  if (currentExecution > 4) {
     return {
       success: false,
       message: "Rate limit exceeded check back in 60 seconds",
@@ -42,8 +40,6 @@ export const getTodos = async () => {
   return todos
 }
 export const addTodo = async (prevState: any, formData: FormData) => {
-  console.log("addTodo", prevState)
-
   const rateLimit = await checkRateLimit()
   if (!rateLimit.success) {
     return rateLimit
@@ -64,7 +60,6 @@ export const addTodo = async (prevState: any, formData: FormData) => {
 
 export const updateTodo = async (id: number, completed: boolean) => {
   const rateLimit = await checkRateLimit()
-  console.log("rateLimit", rateLimit)
   if (!rateLimit.success) {
     return rateLimit
   }

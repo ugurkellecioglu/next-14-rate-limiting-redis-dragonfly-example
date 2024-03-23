@@ -16,7 +16,6 @@ export default async function UpdateButton({
 }) {
   const onClick = async () => {
     const res = await updateTodo(id, completed)
-    console.log("res", res)
     toast({
       description: res?.message,
       variant: res?.success ? "default" : "destructive",

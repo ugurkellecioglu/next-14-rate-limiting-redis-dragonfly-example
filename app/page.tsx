@@ -15,6 +15,7 @@ import { revalidatePath } from "next/cache"
 import { eq } from "drizzle-orm"
 import { addTodo, getTodos } from "@/actions"
 import UpdateButton from "@/components/UpdateButton"
+import AddTodoForm from "@/components/AddTodoForm"
 
 export default async function Home() {
   const todos = await getTodos()
@@ -22,14 +23,7 @@ export default async function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center  p-24 gap-4">
       <h1>Todo App with Rate Limiting Dragonfly, Redis alternative.</h1>
-      <form
-        action={addTodo}
-        className="flex flex-col  justify-center gap-2 w-2/5"
-      >
-        <label htmlFor="description">Description</label>
-        <Input id="description" name="description" type="text" />
-        <Button type="submit">Add Todo</Button>
-      </form>
+      <AddTodoForm />
 
       <Table>
         <TableCaption>Todos</TableCaption>
